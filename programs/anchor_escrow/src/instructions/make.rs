@@ -46,18 +46,16 @@ pub struct Make<'info> {
 }
 
 impl<'info> Make<'info> {
-    pub fn init_escrow(&mut self, seed: u64, recieve: u64, bumps: &MakeBumps) -> Result<()> {
+    pub fn init_escrow(&mut self, seed: u64, recieve: u64, bumps: &MakeBumps) -> Result<()> { // This function is designed to initialize or update the escrow account with necessary parameters to establish the conditions under which the escrow operates
 
-        self.escrow.set_inner(Escrow {
+        self.escrow.set_inner(Escrow { 
             seed,
             maker: self.maker.key(),
             mint_a: self.mint_a.key(),
             mint_b: self.mint_b.key(),
             recieve,
-            bump: bumps.escrow,  // The bump seed is included to ensure that the address of the escrow account is derived securely and pred 
-
+            bump: bumps.escrow,  // The bump seed is included to ensure that the address of the escrow account is derived securely 
         });
-
         Ok(())
     }
 
