@@ -6,5 +6,4 @@ node_modules
 test-ledger
 .yarn
 *wallet
-concat_files.sh
-combined.txt
+archive

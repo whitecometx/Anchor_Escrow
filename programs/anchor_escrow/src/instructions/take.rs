@@ -3,7 +3,7 @@ use anchor_spl::{self,
     associated_token::AssociatedToken, 
     token_interface::{TransferChecked, transfer_checked, CloseAccount, close_account, Mint, TokenAccount, TokenInterface}
     };
-use crate::state::escrow;
+//use crate::state::escrow;
 use crate::Escrow;
 
 #[derive(Accounts)]

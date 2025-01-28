@@ -3,7 +3,7 @@ use anchor_spl::{
     associated_token::AssociatedToken, 
     token_interface::{TransferChecked, transfer_checked, Mint, TokenAccount, TokenInterface}
     };
-use crate::state::escrow;
+//use crate::state::escrow;
 use crate::Escrow;
 
 
@@ -24,12 +24,10 @@ pub struct Make<'info> {
     #[account(
         init,
         payer = maker,
+        space = 8 + Escrow:: INIT_SPACE,
         seeds = [b"escrow", maker.key().as_ref(), seed.to_le_bytes().as_ref()], // escrow is a word we give, we can use anyother word too
         bump,
-        space = 8 + Escrow:: INIT_SPACE,
-
     )]
-
     pub escrow: Account<'info, Escrow>,
 
     #[account(

@@ -6,9 +6,7 @@ pub mod state;
 use state::*;
 pub mod instructions;
 use instructions::*;
-/*use crate::instructions::Refund;
-use crate::instructions::Make;
-use crate::instructions::Take;*/
+
 #[program]
 pub mod anchor_escrow {
     use super::*;
@@ -16,6 +14,10 @@ pub mod anchor_escrow {
     /// Takes a seed, deposit amount, and receive amount
     /// Designed to deposit funds and set up the escrow conditions
     pub fn make(ctx: Context<Make>, seed: u64, deposit: u64, receive: u64) -> Result<()> {
+        msg!("Initializing escrow with seed: {}", seed);
+        msg!("Deposit amount: {}", deposit);
+        msg!("Receive amount: {}", receive);
+
         ctx.accounts.deposit(deposit);
         ctx.accounts.init_escrow(seed, receive, &ctx.bumps)
     } 
