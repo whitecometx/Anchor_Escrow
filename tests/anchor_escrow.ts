@@ -3,7 +3,7 @@ import { Program } from "@coral-xyz/anchor";
 import { AnchorEscrow } from "../target/types/anchor_escrow";
 import { BN } from "bn.js";
 import { createAssociatedTokenAccountIdempotentInstruction, createInitializeMint2Instruction, createMintToInstruction, getAssociatedTokenAddressSync, getMinimumBalanceForRentExemptMint, MINT_SIZE, TOKEN_PROGRAM_ID, ASSOCIATED_TOKEN_PROGRAM_ID } from "@solana/spl-token";
-import { LAMPORTS_PER_SOL, sendAndConfirmTransaction, Transaction, PublicKey, SystemProgram } from "@solana/web3.js";
+import { LAMPORTS_PER_SOL, PublicKey, SystemProgram } from "@solana/web3.js";
 import { token } from "@coral-xyz/anchor/dist/cjs/utils"
 import { randomBytes } from "crypto";
 
@@ -55,7 +55,7 @@ describe("anchor_escrow", () => {
         lamports,
         space: MINT_SIZE,
         programId: tokenProgram,
-      }),
+      }),  
 
     createInitializeMint2Instruction(mintA.publicKey, 6, maker.publicKey, null, tokenProgram),
     createAssociatedTokenAccountIdempotentInstruction(provider.publicKey, makerAtaA, maker.publicKey, mintA.publicKey, tokenProgram  ),
@@ -65,7 +65,6 @@ describe("anchor_escrow", () => {
     createAssociatedTokenAccountIdempotentInstruction(provider.publicKey, takerAtaB, taker.publicKey, mintB.publicKey, tokenProgram ),                    
     createMintToInstruction(mintB.publicKey, takerAtaB ,taker.publicKey, 1e9, undefined, tokenProgram ), 
     ];
-    
     
     console.log({
       maker: maker.publicKey.toString(), 
@@ -86,15 +85,15 @@ describe("anchor_escrow", () => {
 
     // Ensure the mints are initialized
     if (!mintAInfo || !mintBInfo) {
-    throw new Error("Mint accounts are not initialized.");
+      throw new Error("Mint accounts are not initialized.");
     }
     const makerAtaABalance = await connection.getTokenAccountBalance(makerAtaA);
-  console.log("Maker ATA A Balance:", makerAtaABalance);
+    console.log("Maker ATA A Balance:", makerAtaABalance);
 
-  // Ensure the correct amount of tokens was minted
-  if (makerAtaABalance.value.amount !== "1000000000") {
-    throw new Error("Incorrect token balance in maker's ATA for mintA.");
-  }
+    // Ensure the correct amount of tokens was minted
+    if (makerAtaABalance.value.amount !== "1000000000") {
+      throw new Error("Incorrect token balance in maker's ATA for mintA.");
+    }
   
   });
   
@@ -119,14 +118,12 @@ describe("anchor_escrow", () => {
 
     const tx = await program.methods.make(
       seed,
-      //new BN(1), //big numbers, because here all numbers like seed are u64, and not able to repersent correctly in JS
-      new BN(1),
+      new BN(1), //big numbers, because here all numbers like seed are u64, and not able to repersent correctly in JS
       new BN(1),
     )
-    //.accountsPartial({...accounts})
-    .accountsPartial({...accounts})
+    
+    .accounts({...accounts}) //.accountsStrict({})  // any one can be used
     .signers([maker])
-    //.accountsStrict({})  // any one can be used
     .rpc();
     console.log("Your transaction signature", tx);
   });

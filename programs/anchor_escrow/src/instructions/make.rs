@@ -6,7 +6,6 @@ use anchor_spl::{
 //use crate::state::escrow;
 use crate::Escrow;
 
-
 #[derive(Accounts)]
 #[instruction(seed: u64)] // this allows a user to have more than 1 escrow otherwise it will throw error if user try to create another escrow
 pub struct Make<'info> {
