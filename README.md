@@ -1,6 +1,26 @@
 # Anchor Escrow Program
 
 This README provides an overview of the Anchor Escrow program, a decentralized escrow system built on the Solana blockchain using the Anchor framework.
+Escrow in cryptocurrency typically works as follows:
+1. The buyer sends funds to the escrow service.
+2. The escrow holds the funds securely.
+3. The seller delivers the agreed-upon goods or services.
+4. Once both parties confirm the transaction is complete, the escrow releases the funds to the seller4.
+
+## Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/whitecometx/Anchor_Escrow
+   cd Anchor_Escrow
+   ```
+
+2. Install the required dependencies:
+   ```bash
+   anchor build
+   ```
+
+3. Ensure your Solana wallet is set up and funded on the devnet.
+
 
 ## Overview
 
@@ -45,6 +65,10 @@ Completes the escrow by transferring tokens between the maker and taker.
 ### Refund
 
 Cancels the escrow and returns deposited tokens to the maker.
+
+## Test
+
+-`anchor_escrow.ts`: Contains tests for the escrow program using the Anchor testing framework.
 
 ## Security Considerations
 
